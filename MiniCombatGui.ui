@@ -43,7 +43,7 @@
       <number>0</number>
      </property>
      <item row="4" column="0" colspan="2">
-      <widget class="QLabel" name="label">
+      <widget class="QLabel" name="TextLabel">
        <property name="minimumSize">
         <size>
          <width>0</width>
@@ -61,7 +61,7 @@
       </widget>
      </item>
      <item row="1" column="0" alignment="Qt::AlignHCenter">
-      <widget class="QGraphicsView" name="graphicsView">
+      <widget class="QGraphicsView" name="playerGraphic">
        <property name="minimumSize">
         <size>
          <width>250</width>
@@ -77,7 +77,7 @@
       </widget>
      </item>
      <item row="1" column="1" alignment="Qt::AlignHCenter">
-      <widget class="QGraphicsView" name="graphicsView_2">
+      <widget class="QGraphicsView" name="EnemyGraphic">
        <property name="minimumSize">
         <size>
          <width>250</width>
@@ -95,7 +95,7 @@
      <item row="3" column="0" colspan="2">
       <layout class="QHBoxLayout" name="horizontalLayout">
        <item>
-        <widget class="QPushButton" name="pushButton_3">
+        <widget class="QPushButton" name="FirstButton">
          <property name="minimumSize">
           <size>
            <width>0</width>
@@ -113,7 +113,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="pushButton_2">
+        <widget class="QPushButton" name="SecindButton">
          <property name="minimumSize">
           <size>
            <width>0</width>
@@ -131,7 +131,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="pushButton">
+        <widget class="QPushButton" name="ThirdButton">
          <property name="minimumSize">
           <size>
            <width>0</width>
@@ -151,7 +151,7 @@
       </layout>
      </item>
      <item row="0" column="0">
-      <widget class="QProgressBar" name="progressBar">
+      <widget class="QProgressBar" name="PlayerHPbar">
        <property name="minimumSize">
         <size>
          <width>0</width>
@@ -167,7 +167,7 @@
       </widget>
      </item>
      <item row="0" column="1">
-      <widget class="QProgressBar" name="progressBar_2">
+      <widget class="QProgressBar" name="EnemyHPbar">
        <property name="minimumSize">
         <size>
          <width>0</width>
