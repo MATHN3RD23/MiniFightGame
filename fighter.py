@@ -133,7 +133,7 @@ class Fighter():
         self.__data.setCharacter(self)
         return str(self.__data)
 
-
+"""
 #IF NEED TO TEST FIGHTER LOGIC
 def main():
     f = Fighter("Cool guy")
@@ -161,3 +161,4 @@ def main():
 
 
 main()
+"""
