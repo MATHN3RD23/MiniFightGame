@@ -7,7 +7,7 @@ class Logic(QMainWindow, Ui_gameWindow):
         self.setupUi(self)
         self.__scene = "start"
 
-  
+
     def starting_screen(self):
         pass
 
