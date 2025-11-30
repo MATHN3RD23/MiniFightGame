@@ -23,6 +23,7 @@ class Fighter():
         self.__hp -= amount
         self.__data.attacked(amount)
 
+    #TODO: add multiple attacks, take int 1-3 to decide which
     def attack(self) -> tuple[int, str]:
         """
         method to use attack action
