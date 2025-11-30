@@ -20,6 +20,10 @@ class Fighter():
         self.__hp -= amount
 
     def attack(self) -> tuple[int, str]:
+        """
+        method to use attack action
+        :return: [int: how much damage was dealt, str: flavertext]
+        """
         damage = int(((random.randint(self.__minAttack, self.__maxAttack)) * self.__attackBonus) - (self.__mercyLevel/10))
         self_damage = random.randint(0, 5)
         self.__hp -= self_damage
@@ -27,6 +31,10 @@ class Fighter():
         return (damage, f"{self.__name} did {damage} damage and took {self_damage} recoil!")
 
     def use_potion(self) -> str:
+        """
+        method to use potion item
+        :return: str: flavertext
+        """
         if self.__items[0] > 0:
             healed = random.randint(5, 20)
             self.__hp += healed
@@ -36,6 +44,10 @@ class Fighter():
             return f"{self.__name} is out of potions!"
 
     def use_berry(self) -> str:
+        """
+        method to use berry item
+        :return: str: flavertext
+        """
         if self.__items[2] > 0:
             bonus = random.randint(2, 4)
             self.__attackBonus += bonus
@@ -45,6 +57,10 @@ class Fighter():
             return f"{self.__name} is out of berrys!"
 
     def use_poison(self)-> tuple[int, str]:
+        """
+        method to use poison item
+        :return: [int: how much damage was dealt, str: flavertext]
+        """
         if self.__items[4] > 0:
             attack = random.randint(2, 5)
             self.__attackBonus += attack
@@ -54,6 +70,11 @@ class Fighter():
             return 0, f"{self.__name} is out of poison!"
 
     def mercey(self, amount) -> tuple[bool, str]:
+        """
+        method when using the mercy action
+        :param amount: the amount of mercy
+        :return: [bool: if the enemy retreats, str: flavortext]
+        """
         self.__mercyLevel += amount
         if self.__mercyLevel > 50:
             self.__mercyLevel = 51
@@ -66,6 +87,23 @@ class Fighter():
             return False, f"{self.__name} is making the enemy wonder why they are fighting!"
         else:
             return False, f"{self.__name} is making the enemy confused!"
+
+    def use_random_action(self) -> list:
+        """
+        method to randomly choose an action, for enemy
+        :return: [int: 1-mercy, 2-potion, 3-berry, 4-poison, 5-attack; return of choice]
+        """
+        choice = random.randint(1, 20)
+        if choice <5:
+            return [1, self.mercey(random.randint(1, 10))]
+        if choice <8:
+            return [2, self.use_potion()]
+        if choice <10:
+            return [3, self.use_berry()]
+        if choice <11:
+            return [4, self.use_poison()]
+        else:
+            return [5, self.attack()]
 
     def __str__(self):
         return f"{self.__name}: hp: {self.__hp}, items: {self.getItems()}, mercy: {self.__mercyLevel}"
