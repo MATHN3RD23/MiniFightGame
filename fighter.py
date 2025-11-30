@@ -1,4 +1,6 @@
 import random
+from MiniFightGame.dataTracker import DataTracker
+
 
 class Fighter():
     def __init__(self, name):
@@ -9,6 +11,7 @@ class Fighter():
         self.__attackBonus = 1
         self.__name = str(name)
         self.__mercyLevel = 0
+        self.__data = DataTracker(str(self))
 
     def set_min_attack(self, new_value):
         self.__minAttack = new_value
@@ -18,6 +21,7 @@ class Fighter():
 
     def take_damage(self, amount):
         self.__hp -= amount
+        self.__data.attacked(amount)
 
     def attack(self) -> tuple[int, str]:
         """
@@ -28,6 +32,9 @@ class Fighter():
         self_damage = random.randint(0, 5)
         self.__hp -= self_damage
         self.__attackBonus = 1
+        self.__data.doAttack()
+        self.__data.takeTurn()
+        self.__data.attacked(self_damage)
         return (damage, f"{self.__name} did {damage} damage and took {self_damage} recoil!")
 
     def use_potion(self) -> str:
@@ -35,6 +42,7 @@ class Fighter():
         method to use potion item
         :return: str: flavertext
         """
+        self.__data.takeTurn()
         if self.__items[0] > 0:
             healed = random.randint(5, 20)
             self.__hp += healed
@@ -48,6 +56,7 @@ class Fighter():
         method to use berry item
         :return: str: flavertext
         """
+        self.__data.takeTurn()
         if self.__items[2] > 0:
             bonus = random.randint(2, 4)
             self.__attackBonus += bonus
@@ -61,6 +70,7 @@ class Fighter():
         method to use poison item
         :return: [int: how much damage was dealt, str: flavertext]
         """
+        self.__data.takeTurn()
         if self.__items[4] > 0:
             attack = random.randint(2, 5)
             self.__attackBonus += attack
@@ -75,7 +85,9 @@ class Fighter():
         :param amount: the amount of mercy
         :return: [bool: if the enemy retreats, str: flavortext]
         """
+        self.__data.takeTurn()
         self.__mercyLevel += amount
+        self.__data.useMercy()
         if self.__mercyLevel > 50:
             self.__mercyLevel = 51
             return True, f"{self.__name} made the enemy retreat!"
@@ -105,17 +117,28 @@ class Fighter():
         else:
             return [5, self.attack()]
 
+    def updateData(self):
+        self.__data = str(self)
+
     def __str__(self):
         return f"{self.__name}: hp: {self.__hp}, items: {self.getItems()}, mercy: {self.__mercyLevel}"
 
     def getItems(self) -> list:
         return [f"{self.__items[0]}: {self.__items[1]}", f"{self.__items[2]}: {self.__items[3]}", f"{self.__items[4]}: {self.__items[5]}"]
 
-"""
-IF NEED TO TEST FIGHTER LOGIC
+    def getData(self):
+        return self.__data.getDatas(self)
+
+    def strGetData(self):
+        self.__data.setCharacter(self)
+        return str(self.__data)
+
+
+#IF NEED TO TEST FIGHTER LOGIC
 def main():
     f = Fighter("Cool guy")
     print(f)
+    print(f.getData())
     print(f.getItems())
     print(f.use_potion())
     print(f.use_berry())
@@ -133,6 +156,8 @@ def main():
     print(f.attack())
     print(f)
     print(f.getItems())
+    print(f.getData())
+    print(f.strGetData())
+
 
 main()
-"""
