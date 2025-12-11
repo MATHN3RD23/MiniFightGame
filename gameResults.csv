@@ -1,2 +1,6 @@
 player,"Character: [player: hp: 31, items: ['2: heal potion', '3: berry', '1: poison'], mercy: 51], turns Taken: 10, took 69 damage, ammount of mercies: 10, ammount of attacks: 0"
 enemy,"Character: [enemy: hp: 107, items: ['0: heal potion', '3: berry', '1: poison'], mercy: 5], turns Taken: 9, took 12 damage, ammount of mercies: 1, ammount of attacks: 6"
+player,"Character: [player: hp: 45, items: ['2: heal potion', '2: berry', '1: poison'], mercy: 1], turns Taken: 4, took 55 damage, ammount of mercies: 1, ammount of attacks: 2"
+enemy,"Character: [enemy: hp: -4, items: ['1: heal potion', '3: berry', '1: poison'], mercy: 0], turns Taken: 4, took 113 damage, ammount of mercies: 0, ammount of attacks: 3"
+player,"Character: [player: hp: 59, items: ['2: heal potion', '3: berry', '1: poison'], mercy: 51], turns Taken: 7, took 41 damage, ammount of mercies: 7, ammount of attacks: 0"
+enemy,"Character: [enemy: hp: 80, items: ['2: heal potion', '3: berry', '1: poison'], mercy: 11], turns Taken: 6, took 20 damage, ammount of mercies: 2, ammount of attacks: 4"

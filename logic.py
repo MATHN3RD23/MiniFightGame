@@ -1,5 +1,6 @@
 from unittest import result
 
+from PyQt6.QtGui import QPixmap
 from PyQt6.QtWidgets import *
 
 from gui import *
@@ -22,11 +23,75 @@ class Logic(QMainWindow, Ui_gameWindow):
         self.starting_screen()
         self.TextLabel.setWordWrap(True)
 
+        self.player_basic = QGraphicsScene(0, 0, 250, 250)
+        pixmap_one = QPixmap("C:/Users/emool/OneDrive/Desktop/CS2/MiniFightGame/pBasic.png")
+        pixmap_pBasic_item = self.player_basic.addPixmap(pixmap_one)
+        pixmap_pBasic_item.setPos(0, 0)
+
+        self.player_attack = QGraphicsScene(0, 0, 250, 250)
+        pixmap_two = QPixmap("C:/Users/emool/OneDrive/Desktop/CS2/MiniFightGame/pAttack.png")
+        pixmap_pAttack_item = self.player_attack.addPixmap(pixmap_two)
+        pixmap_pAttack_item.setPos(0, 0)
+
+        self.player_faint = QGraphicsScene(0, 0, 250, 250)
+        pixmap_three = QPixmap("C:/Users/emool/OneDrive/Desktop/CS2/MiniFightGame/pfainted.png")
+        pixmap_pFaint_item = self.player_faint.addPixmap(pixmap_three)
+        pixmap_pFaint_item.setPos(0, 0)
+
+        self.player_item = QGraphicsScene(0, 0, 250, 250)
+        pixmap_four = QPixmap("C:/Users/emool/OneDrive/Desktop/CS2/MiniFightGame/pItem.png")
+        pixmap_pItem_item = self.player_item.addPixmap(pixmap_four)
+        pixmap_pItem_item.setPos(0, 0)
+
+        self.player_mercy = QGraphicsScene(0, 0, 250, 250)
+        pixmap_five = QPixmap("C:/Users/emool/OneDrive/Desktop/CS2/MiniFightGame/pMercy.png")
+        pixmap_pMercy_item = self.player_mercy.addPixmap(pixmap_five)
+        pixmap_pMercy_item.setPos(0, 0)
+
+        self.player_retreat = QGraphicsScene(0, 0, 250, 250)
+        pixmap_six = QPixmap("C:/Users/emool/OneDrive/Desktop/CS2/MiniFightGame/pRetreat.png")
+        pixmap_pRetreat_item = self.player_retreat.addPixmap(pixmap_six)
+        pixmap_pRetreat_item.setPos(0, 0)
+
+
+
+        self.enemy_basic = QGraphicsScene(0, 0, 250, 250)
+        pixmap_seven = QPixmap("C:/Users/emool/OneDrive/Desktop/CS2/MiniFightGame/eBasic.png")
+        pixmap_eBasic_item = self.enemy_basic.addPixmap(pixmap_seven)
+        pixmap_eBasic_item.setPos(0, 0)
+
+        self.enemy_attacking = QGraphicsScene(0, 0, 250, 250)
+        pixmap_eight = QPixmap("C:/Users/emool/OneDrive/Desktop/CS2/MiniFightGame/eAttack.png")
+        pixmap_eAttack_item = self.enemy_attacking.addPixmap(pixmap_eight)
+        pixmap_eAttack_item.setPos(0, 0)
+
+        self.enemy_faint = QGraphicsScene(0, 0, 250, 250)
+        pixmap_nine = QPixmap("C:/Users/emool/OneDrive/Desktop/CS2/MiniFightGame/eFainted.png")
+        pixmap_eFaint_item = self.enemy_faint.addPixmap(pixmap_nine)
+        pixmap_eFaint_item.setPos(0, 0)
+
+        self.enemy_item = QGraphicsScene(0, 0, 250, 250)
+        pixmap_ten = QPixmap("C:/Users/emool/OneDrive/Desktop/CS2/MiniFightGame/eitem.png")
+        pixmap_eItem_item = self.enemy_item.addPixmap(pixmap_ten)
+        pixmap_eItem_item.setPos(0, 0)
+
+        self.enemy_mercy = QGraphicsScene(0, 0, 250, 250)
+        pixmap_eleven = QPixmap("C:/Users/emool/OneDrive/Desktop/CS2/MiniFightGame/eMercy.png")
+        pixmap_eMercy_item = self.enemy_mercy.addPixmap(pixmap_eleven)
+        pixmap_eMercy_item.setPos(0, 0)
+
+        self.enemy_reteat = QGraphicsScene(0, 0, 250, 250)
+        pixmap_tweleve = QPixmap("C:/Users/emool/OneDrive/Desktop/CS2/MiniFightGame/eRetreat.png")
+        pixmap_eRetreat_item = self.enemy_reteat.addPixmap(pixmap_tweleve)
+        pixmap_eRetreat_item.setPos(0, 0)
+
 
 
     def newGame(self):
         self.player = Fighter("player")
         self.enemy = Fighter("enemy")
+        self.playerGraphic.setScene(self.player_basic)
+        self.EnemyGraphic.setScene(self.enemy_basic)
         self.battle_screen()
 
 
@@ -47,12 +112,20 @@ class Logic(QMainWindow, Ui_gameWindow):
 
         if type == 0:
             self.TextLabel.setText("The player made the enemy retreat!")
+            self.playerGraphic.setScene(self.player_basic)
+            self.EnemyGraphic.setScene(self.enemy_reteat)
         elif type == 1:
             self.TextLabel.setText("The enemy made the player retreat!")
+            self.playerGraphic.setScene(self.player_retreat)
+            self.EnemyGraphic.setScene(self.enemy_basic)
         elif type == 2:
             self.TextLabel.setText("The enemy fainted!")
+            self.playerGraphic.setScene(self.player_basic)
+            self.EnemyGraphic.setScene(self.enemy_faint)
         elif type == 3:
             self.TextLabel.setText("The player fainted!")
+            self.playerGraphic.setScene(self.player_faint)
+            self.EnemyGraphic.setScene(self.enemy_basic)
 
 
     def saveData(self):
@@ -66,26 +139,36 @@ class Logic(QMainWindow, Ui_gameWindow):
 
 
     def battle_screen(self):
+        self.playerGraphic.setScene(self.player_basic)
+        self.EnemyGraphic.setScene(self.enemy_basic)
         self.__scene = 1
         self.update("FIGHT", "ITEM", "MERCY", "CHOOSE AN ACTION!")
 
     def fight_screen(self):
+        self.playerGraphic.setScene(self.player_basic)
+        self.EnemyGraphic.setScene(self.enemy_basic)
         self.__scene = 2
         self.update("PUNCH", "KICK", "FIREBALL", "CHOOSE AN ATTACK!")
 
     def item_screen(self):
+        self.playerGraphic.setScene(self.player_basic)
+        self.EnemyGraphic.setScene(self.enemy_basic)
         self.__scene = 3
         self.update("POTION", "BERRY", "POISON", "CHOOSE AN ITEM!")
 
     def mercy_screen(self):
+        self.playerGraphic.setScene(self.player_basic)
+        self.EnemyGraphic.setScene(self.enemy_basic)
         self.__scene = 4
         self.update("'hey buddy'", "'you look good fighting'", "*do a cool dance move*", "CHOOSE AN ACTION!")
 
     def player_results(self, text):
+        self.EnemyGraphic.setScene(self.enemy_basic)
         self.__scene = 5
         self.update("-", "RESULTS", "-", text)
 
     def enemy_attack(self):
+        self.playerGraphic.setScene(self.player_basic)
         self.__scene = 6
         results = self.enemy.use_random_action()
         choice = results[0]
@@ -94,11 +177,16 @@ class Logic(QMainWindow, Ui_gameWindow):
                 self.exit_screen(1)
             else:
                 self.update("-", "USED MERCY", "-", results[1][1])
+                self.EnemyGraphic.setScene(self.enemy_mercy)
         elif choice == 2 or choice == 3:
             self.update("-", "USED NON LETHAL ITEM", "-", results[1])
+            self.EnemyGraphic.setScene(self.enemy_item)
         elif choice == 4 or choice == 5:
             self.player.take_damage(results[1][0])
             self.update("-", "DEALT DAMAGE", "-", results[1][1])
+            self.EnemyGraphic.setScene(self.enemy_item)
+            if choice == 5:
+                self.EnemyGraphic.setScene(self.enemy_attacking)
 
 
     def update(self, a, b, c, text) -> None:
@@ -127,12 +215,15 @@ class Logic(QMainWindow, Ui_gameWindow):
             self.fight_screen()
         elif self.__scene == 2:
             result = self.player.attack(1)
+            self.playerGraphic.setScene(self.player_attack)
             self.enemy.take_damage(result[0])
             self.player_results(result[1])
         elif self.__scene == 3:
             result = self.player.use_potion()
+            self.playerGraphic.setScene(self.player_item)
             self.player_results(result)
         elif self.__scene == 4:
+            self.playerGraphic.setScene(self.player_mercy)
             result = self.player.mercey(random.randint(1, 10))
             if result[0]:
                 self.exit_screen(0)
@@ -152,12 +243,15 @@ class Logic(QMainWindow, Ui_gameWindow):
             self.item_screen()
         elif self.__scene == 2:
             result = self.player.attack(2)
+            self.playerGraphic.setScene(self.player_attack)
             self.enemy.take_damage(result[0])
             self.player_results(result[1])
         elif self.__scene == 3:
+            self.playerGraphic.setScene(self.player_item)
             result = self.player.use_berry()
             self.player_results(result)
         elif self.__scene == 4:
+            self.playerGraphic.setScene(self.player_mercy)
             result = self.player.mercey(random.randint(1, 10))
             if result[0]:
                 self.exit_screen(0)
@@ -173,13 +267,16 @@ class Logic(QMainWindow, Ui_gameWindow):
             self.mercy_screen()
         elif self.__scene == 2:
             result = self.player.attack(3)
+            self.playerGraphic.setScene(self.player_attack)
             self.enemy.take_damage(result[0])
             self.player_results(result[1])
         elif self.__scene == 3:
+            self.playerGraphic.setScene(self.player_item)
             result = self.player.use_poison()
             self.enemy.take_damage(result[0])
             self.player_results(result[1])
         elif self.__scene == 4:
+            self.playerGraphic.setScene(self.player_mercy)
             result = self.player.mercey(random.randint(1, 15))
             if result[0]:
                 self.exit_screen(0)
