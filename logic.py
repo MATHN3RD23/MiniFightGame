@@ -7,6 +7,12 @@ from gui import *
 from fighter import *
 import csv
 
+"""
+NOTE: the images used are implemented with absolute path and may need re-worked with implementing
+lines of occurance:
+35, 40, 45, 50, 55, 60; 67, 72, 77, 82, 87, 92
+"""
+
 
 class Logic(QMainWindow, Ui_gameWindow):
     def __init__(self):
@@ -22,6 +28,8 @@ class Logic(QMainWindow, Ui_gameWindow):
         self.enemy = Fighter("none")
         self.starting_screen()
         self.TextLabel.setWordWrap(True)
+
+        #the following section: setting up scenes with all the images for the graphics
 
         self.player_basic = QGraphicsScene(0, 0, 250, 250)
         pixmap_one = QPixmap("C:/Users/emool/OneDrive/Desktop/CS2/MiniFightGame/pBasic.png")
@@ -87,7 +95,7 @@ class Logic(QMainWindow, Ui_gameWindow):
 
 
 
-    def newGame(self):
+    def newGame(self) -> None:
         self.player = Fighter("player")
         self.enemy = Fighter("enemy")
         self.playerGraphic.setScene(self.player_basic)
@@ -95,11 +103,15 @@ class Logic(QMainWindow, Ui_gameWindow):
         self.battle_screen()
 
 
-    def starting_screen(self):
+    def starting_screen(self) -> None:
         self.__scene = 0
         self.update("-", "PRESS TO START", "-", "Starting screen...")
 
-    def exit_screen(self, type):
+    def exit_screen(self, type) -> None:
+        """
+        method to end the current game
+        :param type: int telling which ending was recived
+        """
         #0 = enemy mercy, 1 = player mercy, 2 = enemy KO, 3 = player KO
         self.__scene = 99
         self.EnemyHPbar.setValue(self.enemy.get_hp())
@@ -128,7 +140,7 @@ class Logic(QMainWindow, Ui_gameWindow):
             self.EnemyGraphic.setScene(self.enemy_basic)
 
 
-    def saveData(self):
+    def saveData(self) -> None:
         with open('C:/Users/emool/OneDrive/Desktop/CS2/MiniFightGame/gameResults.csv', 'a', newline='') as output_csv_file:
             print('here in file')
             content = csv.writer(output_csv_file)
@@ -138,36 +150,39 @@ class Logic(QMainWindow, Ui_gameWindow):
 
 
 
-    def battle_screen(self):
+    def battle_screen(self) -> None:
         self.playerGraphic.setScene(self.player_basic)
         self.EnemyGraphic.setScene(self.enemy_basic)
         self.__scene = 1
         self.update("FIGHT", "ITEM", "MERCY", "CHOOSE AN ACTION!")
 
-    def fight_screen(self):
+    def fight_screen(self) -> None:
         self.playerGraphic.setScene(self.player_basic)
         self.EnemyGraphic.setScene(self.enemy_basic)
         self.__scene = 2
         self.update("PUNCH", "KICK", "FIREBALL", "CHOOSE AN ATTACK!")
 
-    def item_screen(self):
+    def item_screen(self) -> None:
         self.playerGraphic.setScene(self.player_basic)
         self.EnemyGraphic.setScene(self.enemy_basic)
         self.__scene = 3
         self.update("POTION", "BERRY", "POISON", "CHOOSE AN ITEM!")
 
-    def mercy_screen(self):
+    def mercy_screen(self) -> None:
         self.playerGraphic.setScene(self.player_basic)
         self.EnemyGraphic.setScene(self.enemy_basic)
         self.__scene = 4
         self.update("'hey buddy'", "'you look good fighting'", "*do a cool dance move*", "CHOOSE AN ACTION!")
 
-    def player_results(self, text):
+    def player_results(self, text) -> None:
         self.EnemyGraphic.setScene(self.enemy_basic)
         self.__scene = 5
         self.update("-", "RESULTS", "-", text)
 
-    def enemy_attack(self):
+    def enemy_attack(self) -> None:
+        """
+        method to have the enemy randomly attack
+        """
         self.playerGraphic.setScene(self.player_basic)
         self.__scene = 6
         results = self.enemy.use_random_action()
@@ -210,7 +225,7 @@ class Logic(QMainWindow, Ui_gameWindow):
             self.exit_screen(2)
         pass
 
-    def clickedA(self):
+    def clickedA(self)-> None:
         if self.__scene == 1:
             self.fight_screen()
         elif self.__scene == 2:
@@ -235,7 +250,6 @@ class Logic(QMainWindow, Ui_gameWindow):
             self.battle_screen()
         elif self.__scene == 99:
             self.saveData()
-
     def clickedB(self):
         if self.__scene == 0:
             self.newGame()
