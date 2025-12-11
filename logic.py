@@ -4,6 +4,8 @@ from PyQt6.QtWidgets import *
 
 from gui import *
 from fighter import *
+import csv
+
 
 class Logic(QMainWindow, Ui_gameWindow):
     def __init__(self):
@@ -28,55 +30,62 @@ class Logic(QMainWindow, Ui_gameWindow):
 
 
     def starting_screen(self):
-        self.update("-", "PRESS TO START", "-", "Starting screen...")
         self.__scene = 0
+        self.update("-", "PRESS TO START", "-", "Starting screen...")
 
     def exit_screen(self, type):
         #0 = enemy mercy, 1 = player mercy, 2 = enemy KO, 3 = player KO
-        print("here")
         self.__scene = 99
-        self.FirstButton.setText("DATA SAVED")
+        self.EnemyHPbar.setValue(self.enemy.get_hp())
+        self.PlayerHPbar.setValue(self.player.get_hp())
+
+        self.FirstButton.setText("SAVE DATA")
         self.SecindButton.setText("-")
         self.ThirdButton.setText("RESTART")
 
-        self.EnemyHPbar.setValue(self.enemy.get_hp())
-        self.PlayerHPbar.setValue(self.player.get_hp())
-        print("and here")
-        if type == 0:
-            self.TextLabel.setText("")
-        elif type == 1:
-            self.TextLabel.setText("")
-        elif type == 2:
-            self.TextLabel.setText("")
-        elif type == 3:
-            self.TextLabel.setText("")
-        self.EnemyHPbar.setValue(self.enemy.get_hp())
-        self.PlayerHPbar.setValue(self.player.get_hp())
 
-        print("and maybe here also")
+        if type == 0:
+            self.TextLabel.setText("The player made the enemy retreat!")
+        elif type == 1:
+            self.TextLabel.setText("The enemy made the player retreat!")
+        elif type == 2:
+            self.TextLabel.setText("The enemy fainted!")
+        elif type == 3:
+            self.TextLabel.setText("The player fainted!")
+
+
+    def saveData(self):
+        with open('C:/Users/emool/OneDrive/Desktop/CS2/MiniFightGame/gameResults.csv', 'a', newline='') as output_csv_file:
+            print('here in file')
+            content = csv.writer(output_csv_file)
+
+            content.writerow(["player", self.player.strGetData()])
+            content.writerow(["enemy", self.enemy.strGetData()])
+
 
 
     def battle_screen(self):
-        self.update("FIGHT", "ITEM", "MERCY", "CHOOSE AN ACTION!")
         self.__scene = 1
+        self.update("FIGHT", "ITEM", "MERCY", "CHOOSE AN ACTION!")
 
     def fight_screen(self):
-        self.update("PUNCH", "KICK", "FIREBALL", "CHOOSE AN ATTACK!")
         self.__scene = 2
+        self.update("PUNCH", "KICK", "FIREBALL", "CHOOSE AN ATTACK!")
 
     def item_screen(self):
-        self.update("POTION", "BERRY", "POISON", "CHOOSE AN ITEM!")
         self.__scene = 3
+        self.update("POTION", "BERRY", "POISON", "CHOOSE AN ITEM!")
 
     def mercy_screen(self):
-        self.update("'hey buddy'", "'you look good fighting'", "*do a cool dance move*", "CHOOSE AN ACTION!")
         self.__scene = 4
+        self.update("'hey buddy'", "'you look good fighting'", "*do a cool dance move*", "CHOOSE AN ACTION!")
 
     def player_results(self, text):
-        self.update("-", "result", "-", text)
         self.__scene = 5
+        self.update("-", "RESULTS", "-", text)
 
     def enemy_attack(self):
+        self.__scene = 6
         results = self.enemy.use_random_action()
         choice = results[0]
         if choice == 1:
@@ -89,7 +98,7 @@ class Logic(QMainWindow, Ui_gameWindow):
         elif choice == 4 or choice == 5:
             self.player.take_damage(results[1][0])
             self.update("-", "RESULT", "-", results[1][1])
-        self.__scene = 6
+
 
     def update(self, a, b, c, text) -> None:
         """
@@ -99,8 +108,6 @@ class Logic(QMainWindow, Ui_gameWindow):
         :param c: third button text
         :param text: flavor text
         """
-
-
         self.FirstButton.setText(a)
         self.SecindButton.setText(b)
         self.ThirdButton.setText(c)
@@ -134,6 +141,8 @@ class Logic(QMainWindow, Ui_gameWindow):
             self.enemy_attack()
         elif self.__scene == 6:
             self.battle_screen()
+        elif self.__scene == 99:
+            self.saveData()
 
     def clickedB(self):
         if self.__scene == 0:
@@ -179,4 +188,6 @@ class Logic(QMainWindow, Ui_gameWindow):
             self.enemy_attack()
         elif self.__scene == 6:
             self.battle_screen()
+        elif self.__scene == 99:
+            self.newGame()
 
