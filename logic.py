@@ -10,7 +10,7 @@ class Logic(QMainWindow, Ui_gameWindow):
         super().__init__()
         self.setupUi(self)
         self.__scene = 0
-        # 0 = starting, 1 = battle, 2 = attack, 3 = item, 4 = mercy, 5 = player results, 6 enemy attack
+        # 0 = starting, 1 = battle, 2 = attack, 3 = item, 4 = mercy, 5 = player results, 6 enemy attack, 99 = exit
 
         self.FirstButton.clicked.connect(self.clickedA)
         self.SecindButton.clicked.connect(self.clickedB)
@@ -33,10 +33,15 @@ class Logic(QMainWindow, Ui_gameWindow):
 
     def exit_screen(self, type):
         #0 = enemy mercy, 1 = player mercy, 2 = enemy KO, 3 = player KO
-
+        print("here")
+        self.__scene = 99
         self.FirstButton.setText("DATA SAVED")
         self.SecindButton.setText("-")
         self.ThirdButton.setText("RESTART")
+
+        self.EnemyHPbar.setValue(self.enemy.get_hp())
+        self.PlayerHPbar.setValue(self.player.get_hp())
+        print("and here")
         if type == 0:
             self.TextLabel.setText("")
         elif type == 1:
@@ -48,7 +53,8 @@ class Logic(QMainWindow, Ui_gameWindow):
         self.EnemyHPbar.setValue(self.enemy.get_hp())
         self.PlayerHPbar.setValue(self.player.get_hp())
 
-        pass
+        print("and maybe here also")
+
 
     def battle_screen(self):
         self.update("FIGHT", "ITEM", "MERCY", "CHOOSE AN ACTION!")
@@ -93,10 +99,7 @@ class Logic(QMainWindow, Ui_gameWindow):
         :param c: third button text
         :param text: flavor text
         """
-        if self.player.get_hp() < 0:
-            self.exit_screen(3)
-        if self.enemy.get_hp() < 0:
-            self.player_results(2)
+
 
         self.FirstButton.setText(a)
         self.SecindButton.setText(b)
@@ -104,6 +107,11 @@ class Logic(QMainWindow, Ui_gameWindow):
         self.TextLabel.setText(text)
         self.EnemyHPbar.setValue(self.enemy.get_hp())
         self.PlayerHPbar.setValue(self.player.get_hp())
+
+        if self.player.get_hp() < 0:
+            self.exit_screen(3)
+        if self.enemy.get_hp() < 0:
+            self.exit_screen(2)
         pass
 
     def clickedA(self):
