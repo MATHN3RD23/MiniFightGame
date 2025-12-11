@@ -23,20 +23,44 @@ class Fighter():
         self.__hp -= amount
         self.__data.attacked(amount)
 
-    #TODO: add multiple attacks, take int 1-3 to decide which
-    def attack(self) -> tuple[int, str]:
+    def get_hp(self):
+        return self.__hp
+
+    def attack(self, type) -> tuple[int, str]:
         """
         method to use attack action
+        :param: type = 1-3 int deciding attack
         :return: [int: how much damage was dealt, str: flavertext]
         """
-        damage = int(((random.randint(self.__minAttack, self.__maxAttack)) * self.__attackBonus) - (self.__mercyLevel/10))
-        self_damage = random.randint(0, 5)
-        self.__hp -= self_damage
-        self.__attackBonus = 1
-        self.__data.doAttack()
-        self.__data.takeTurn()
-        self.__data.attacked(self_damage)
-        return (damage, f"{self.__name} did {damage} damage and took {self_damage} recoil!")
+        if type == 1:
+            damage = int(((random.randint(self.__minAttack, self.__maxAttack)) * self.__attackBonus) - (self.__mercyLevel/10))
+            self_damage = random.randint(0, 5)
+            self.__hp -= self_damage
+            self.__attackBonus = 1
+            self.__data.doAttack()
+            self.__data.takeTurn()
+            self.__data.attacked(self_damage)
+            return (damage, f"{self.__name} did {damage} damage and took {self_damage} recoil!")
+
+        if type == 2:
+            damage = int((((random.randint(self.__minAttack, self.__maxAttack)) * self.__attackBonus) - (self.__mercyLevel / 10)) + 10)
+            self_damage = random.randint(0, 5) * 2
+            self.__hp -= self_damage
+            self.__attackBonus = 1
+            self.__data.doAttack()
+            self.__data.takeTurn()
+            self.__data.attacked(self_damage)
+            return (damage, f"{self.__name} did {damage} damage and took {self_damage} recoil!")
+
+        if type == 3:
+            damage = int(((random.randint(self.__minAttack, self.__maxAttack)) * self.__attackBonus) - (self.__mercyLevel / 10)) * 2
+            self_damage = random.randint(0, 5) * 4
+            self.__hp -= self_damage
+            self.__attackBonus = 1
+            self.__data.doAttack()
+            self.__data.takeTurn()
+            self.__data.attacked(self_damage)
+            return (damage, f"{self.__name} did {damage} damage and took {self_damage} recoil!")
 
     def use_potion(self) -> str:
         """
@@ -116,7 +140,13 @@ class Fighter():
         if choice <11:
             return [4, self.use_poison()]
         else:
-            return [5, self.attack()]
+            nextchoice = random.randint(1, 3)
+            if nextchoice == 1:
+                return [5, self.attack(1)]
+            if nextchoice == 2:
+                return [5, self.attack(2)]
+            if nextchoice == 3:
+                return [5, self.attack(3)]
 
     def updateData(self):
         self.__data = str(self)
