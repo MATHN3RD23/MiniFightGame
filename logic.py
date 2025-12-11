@@ -123,21 +123,25 @@ class Logic(QMainWindow, Ui_gameWindow):
 
 
         if type == 0:
-            self.TextLabel.setText("The player made the enemy retreat!")
             self.playerGraphic.setScene(self.player_basic)
             self.EnemyGraphic.setScene(self.enemy_reteat)
+            self.TextLabel.setText("The player made the enemy retreat!")
+
         elif type == 1:
-            self.TextLabel.setText("The enemy made the player retreat!")
             self.playerGraphic.setScene(self.player_retreat)
             self.EnemyGraphic.setScene(self.enemy_basic)
+            self.TextLabel.setText("The enemy made the player retreat!")
+
         elif type == 2:
-            self.TextLabel.setText("The enemy fainted!")
             self.playerGraphic.setScene(self.player_basic)
             self.EnemyGraphic.setScene(self.enemy_faint)
+            self.TextLabel.setText("The enemy fainted!")
+
         elif type == 3:
+            self.playerGraphic.setScene(self.player_basic)
+            self.EnemyGraphic.setScene(self.enemy_faint)
             self.TextLabel.setText("The player fainted!")
-            self.playerGraphic.setScene(self.player_faint)
-            self.EnemyGraphic.setScene(self.enemy_basic)
+
 
 
     def saveData(self) -> None:
