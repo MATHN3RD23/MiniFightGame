@@ -20,6 +20,7 @@ class Logic(QMainWindow, Ui_gameWindow):
         self.player = Fighter("none")
         self.enemy = Fighter("none")
         self.starting_screen()
+        self.TextLabel.setWordWrap(True)
 
 
 
@@ -92,12 +93,12 @@ class Logic(QMainWindow, Ui_gameWindow):
             if results[1][0]:
                 self.exit_screen(1)
             else:
-                self.update("-", "RESULT", "-", results[1][1])
+                self.update("-", "USED MERCY", "-", results[1][1])
         elif choice == 2 or choice == 3:
-            self.update("-", "RESULT", "-", results[1])
+            self.update("-", "USED NON LETHAL ITEM", "-", results[1])
         elif choice == 4 or choice == 5:
             self.player.take_damage(results[1][0])
-            self.update("-", "RESULT", "-", results[1][1])
+            self.update("-", "DEALT DAMAGE", "-", results[1][1])
 
 
     def update(self, a, b, c, text) -> None:
