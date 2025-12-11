@@ -13,17 +13,21 @@ class Fighter():
         self.__mercyLevel = 0
         self.__data = DataTracker(str(self))
 
-    def set_min_attack(self, new_value):
+    def set_min_attack(self, new_value) -> None:
         self.__minAttack = new_value
 
-    def set_max_attack(self, new_value):
+    def set_max_attack(self, new_value) -> None:
         self.__maxAttack = new_value
 
-    def take_damage(self, amount):
+    def take_damage(self, amount) -> None:
         self.__hp -= amount
         self.__data.attacked(amount)
 
-    def get_hp(self):
+    def get_hp(self) -> int:
+        """
+
+        :return: hp of the fighter
+        """
         return self.__hp
 
     def attack(self, type) -> tuple[int, str]:
@@ -40,7 +44,7 @@ class Fighter():
             self.__data.doAttack()
             self.__data.takeTurn()
             self.__data.attacked(self_damage)
-            return (damage, f"{self.__name} did {damage} damage and took {self_damage} recoil!")
+            return damage, f"{self.__name} did {damage} damage and took {self_damage} recoil!"
 
         if type == 2:
             damage = int((((random.randint(self.__minAttack, self.__maxAttack)) * self.__attackBonus) - (self.__mercyLevel / 10)) + 10)
@@ -148,19 +152,27 @@ class Fighter():
             if nextchoice == 3:
                 return [5, self.attack(3)]
 
-    def updateData(self):
+    def updateData(self) -> None:
         self.__data = str(self)
 
-    def __str__(self):
+    def __str__(self) -> str:
+        """
+
+        :return: string of fighters data
+        """
         return f"{self.__name}: hp: {self.__hp}, items: {self.getItems()}, mercy: {self.__mercyLevel}"
 
     def getItems(self) -> list:
+        """
+
+        :return: string of items
+        """
         return [f"{self.__items[0]}: {self.__items[1]}", f"{self.__items[2]}: {self.__items[3]}", f"{self.__items[4]}: {self.__items[5]}"]
 
-    def getData(self):
+    def getData(self) -> list:
         return self.__data.getDatas(self)
 
-    def strGetData(self):
+    def strGetData(self) -> str:
         self.__data.setCharacter(self)
         return str(self.__data)
 
