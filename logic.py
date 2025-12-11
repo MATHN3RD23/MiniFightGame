@@ -226,6 +226,9 @@ class Logic(QMainWindow, Ui_gameWindow):
         pass
 
     def clickedA(self)-> None:
+        """
+        method for clicking the first button
+        """
         if self.__scene == 1:
             self.fight_screen()
         elif self.__scene == 2:
@@ -250,7 +253,11 @@ class Logic(QMainWindow, Ui_gameWindow):
             self.battle_screen()
         elif self.__scene == 99:
             self.saveData()
-    def clickedB(self):
+
+    def clickedB(self)-> None:
+        """
+        method for clicking the second button
+        """
         if self.__scene == 0:
             self.newGame()
         elif self.__scene == 1:
@@ -276,7 +283,10 @@ class Logic(QMainWindow, Ui_gameWindow):
         elif self.__scene == 6:
             self.battle_screen()
 
-    def clickedC(self):
+    def clickedC(self)-> None:
+        """
+        method for clicking the third button
+        """
         if self.__scene == 1:
             self.mercy_screen()
         elif self.__scene == 2:
