@@ -22,6 +22,8 @@ class Fighter():
     def take_damage(self, amount) -> None:
         self.__hp -= amount
         self.__data.attacked(amount)
+        if self.__hp <= 0:
+            self.__hp = 0
 
     def get_hp(self) -> int:
         """
